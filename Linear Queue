@@ -1,0 +1,61 @@
+#include<stdio.h>
+#define QSIZE 5
+void push(int q[],int *rear,int item)
+{
+if(*rear==QSIZE-1)
+{
+printf("Queue overflow\n");
+return 0;
+}
+q[++(*rear)]=item;
+}
+int pop(int q[],int *rear,int *front)
+{
+if(*front>*rear)
+{
+printf("Queue Underflow\n");
+return 0;
+}
+return q[(*front)++];
+}
+void display(int q[],int *rear,int *front)
+{
+if(*front>*rear)
+{
+printf("Queue Underflow\n");
+return 0;
+}
+for(int i=*front;i<=*rear;i++)
+{
+printf("%d",q[i]);
+}
+}
+void main()
+{
+int q[QSIZE];
+int front=0;
+int rear=-1;
+int choice;
+int item;
+int deleted;
+while(1)
+{
+printf("Enter 1.INSERT 2.POP 3.DISPLAY\n");
+scanf("%d",&choice);
+switch(choice)
+{
+case 1:printf("Enter item:\n");
+scanf("%d",&item);
+push(q,&rear,item);
+break;
+case 2:deleted=pop(q,&rear,&front);
+if(deleted!=0)
+printf("Deleted item:%d\n",deleted);
+break;
+case 3:display(q,&rear,&front);
+break;
+default:printf("Invalid");
+exit(1);
+}
+}
+}
