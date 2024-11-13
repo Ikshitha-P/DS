@@ -125,8 +125,6 @@ NODE delete_val(NODE *first, int val) {
     return *first;
 }
 
-
-
 NODE* sort(NODE *first) {
     if (*first == NULL || (*first)->next == NULL) {
         return first;
@@ -135,12 +133,9 @@ NODE* sort(NODE *first) {
     NODE temp1, temp2;
     int x;
 
-
     for (temp1 = *first; temp1 != NULL; temp1 = temp1->next) {
-
         for (temp2 = temp1->next; temp2 != NULL; temp2 = temp2->next) {
             if (temp1->value > temp2->value) {
-
                 x = temp1->value;
                 temp1->value = temp2->value;
                 temp2->value = x;
@@ -151,47 +146,39 @@ NODE* sort(NODE *first) {
     return *first;
 }
 
-
-
-
-NODE* concatenate(NODE *first,NODE *first2)
-{
-if(*first==NULL)
-return *first2;
-else if(*first2==NULL)
-return *first;
-NODE temp=*first;
-while((temp->next)!=NULL)
-{
-temp=temp->next;
-}
-temp->next=*first2;
-return *first;
-}
-
-NODE* reverse(NODE *first) {
-    NODE temp;;
-    NODE curr =NULL;
-
-
-    while (*first!= NULL) {
-        temp=*first;
-        *first=(*first)->next;
-        temp->next=curr;
-        curr = temp;
+NODE* concatenate(NODE *first, NODE *first2) {
+    if (*first == NULL) return *first2;
+    else if (*first2 == NULL) return *first;
+    
+    NODE temp = *first;
+    while (temp->next != NULL) {
+        temp = temp->next;
     }
-
+    temp->next = *first2;
     return *first;
 }
 
+NODE* reverse(NODE *first) {
+    NODE temp;
+    NODE curr = NULL;
 
+    while (*first != NULL) {
+        temp = *first;
+        *first = (*first)->next;
+        temp->next = curr;
+        curr = temp;
+    }
 
-void display(NODE *first) {
-    if (*first == NULL) {
+    *first = curr;  // Set the new head of the reversed list
+    return *first;
+}
+
+void display(NODE first) {
+    if (first == NULL) {
         printf("EMPTY\n");
         return;
     }
-    NODE curr = *first;
+    NODE curr = first;
     while (curr != NULL) {
         printf("%d\n", curr->value);
         curr = curr->next;
@@ -200,7 +187,7 @@ void display(NODE *first) {
 
 int main() {
     NODE first = NULL;
-    NODE first2=NULL;
+    NODE first2 = NULL;
     int choice;
     int item;
     int pos;
@@ -247,13 +234,13 @@ int main() {
             case 9:
                 printf("Enter item:\n");
                 scanf("%d", &item);
-                insert_end(&first, item);
+                insert_end(&first2, item);  // Insert into second list
                 break;
             case 10:
-                concatenate(&first,&first2);
+                concatenate(&first, &first2);
                 break;
             case 11:
-                display(&first);
+                display(first);
                 break;
             case 12:
                 exit(0);
